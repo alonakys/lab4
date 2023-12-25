@@ -36,17 +36,21 @@ namespace lab4
             }
             nominative = nom;
             denominative = denom;
+            
+            SimplifyFrac();
         }
 
         public MyFrac(int nom, int denom) : this(new BigInteger(nom), new BigInteger(denom))
         {
-            SimplifyFrac();
         }
         private void SimplifyFrac()
         {
             BigInteger comdiv = BigInteger.GreatestCommonDivisor(nominative, denominative);
-            nominative /= comdiv;
-            denominative /= comdiv;
+            if (comdiv != 0)
+            {
+                nominative /= comdiv;
+                denominative /= comdiv;
+            }
         }
         public MyFrac Add(MyFrac that)
         {
@@ -77,7 +81,7 @@ namespace lab4
         public int CompareTo(MyFrac other)
         {
             decimal thisValue = (decimal)this.nominative / (decimal)this.denominative;
-            decimal otherValue = (decimal)this.nominative / (decimal)this.denominative;
+            decimal otherValue = (decimal)other.nominative / (decimal)other.denominative;
 
             return thisValue.CompareTo(otherValue);
         }
